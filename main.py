@@ -24,31 +24,26 @@ class Plinko():
         # self.gameBalls.append(self.b)
 
     def setObstacles(self):
-        # for i in range(1, 10):
-        #     self.obstacles.append(Obstacle(self, self.width, 5*i, 20, 20))
-            # Random Obstacles
-            # self.obstacles.append(Obstacle(self, randint(0, 900), randint(0, 900), 50, 50))
-
-        self.obstacles.append(Obstacle(self, 450, 200, 100, 400))
-        #self.obstacles.append(Obstacle(self, self.width/2, 50, 20, 20))
-        #self.obstacles.append(Obstacle(self, self.width/2, 50, 20, 20))
-
-
+        """Creates the Set of Obstacles"""
 
     def draw(self):
+        """Draw all parts of the game"""
+        # Draw all game Balls
         for b in self.gameBalls:
             b.draw()
 
+        # Drawll all obstacles
         for o in self.obstacles:
             o.draw()
 
     def move(self):
+        """Move all game items"""
         for b in self.gameBalls:
             b.move()
 
     def collide(self):
+        """Collide all game items"""
         for b in self.gameBalls:
-            # Collide game balls with obstacles
             b.collide(self.obstacles)
 
     def run(self):
@@ -61,11 +56,13 @@ class Plinko():
             pygame.time.delay(10)
             key = pygame.key.get_pressed()
 
+            # ESC
             if key[27]:
                 pygame.quit()
                 run = False
                 return
 
+            # Space to drop new Game Balls
             if key[32] and delay > self.ballDelay:
                 self.gameBalls.append(Ball(self, uniform(-2,2), uniform(-2,2)))
                 delay = 0

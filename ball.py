@@ -5,25 +5,28 @@ class Ball():
         self.game = game
         self.x = 490
         self.y = 0
-        self.width = 20
-        self.height = 20
+        self.width = 15
+        self.height = 15
         self.xvel = xvel
         self.yvel = yvel
         self.color = ((255,255,255))
 
         self.gravity = 0.05
-        self.bumpDamping = 1.05
+        self.bumpDamping = 1.5
 
     def draw(self):
+        """Draw the Game Ball"""
         pygame.draw.rect(self.game.win, self.color, (self.x, self.y, self.width, self.height))
 
     def move(self):
+        """Move the Game Ball"""
         self.yvel += self.gravity
         self.x += self.xvel
         self.y += self.yvel
 
     def collide(self, objects):
-        # Collide Game Ball with Walls
+        """Collide Game Ball"""
+        # Collid Game Ball with Game edges
         if (self.x + self.width) >= self.game.width:
             self.x = self.game.width - self.width
             self.xvel = -self.xvel
