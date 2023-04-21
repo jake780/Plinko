@@ -8,8 +8,8 @@ class Plinko():
     def __init__(self):
         pygame.display.init()
         pygame.font.init()
-        self.width = 1000
-        self.height = 800
+        self.width = 1200
+        self.height = 1000
         self.win = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption("Plinko")
 
@@ -25,9 +25,25 @@ class Plinko():
 
     def setObstacles(self):
         """Creates the Set of Obstacles"""
+        xSpacing = 120
+        xOffset = 590
+        ySpacing = 80
+        width = 25
+        height = 20
+
+        for i in range(2, 12):
+            for j in range(1, i):
+                self.obstacles.append(Obstacle(self, j*xSpacing + xOffset - (i*xSpacing/2), i*ySpacing, width, height))
+
 
     def draw(self):
         """Draw all parts of the game"""
+
+        # Game Background
+        # Ball start background
+        pygame.draw.rect(self.win, ((255, 0, 0)), (self.width/2 - 10, 0, 20, 20))
+
+
         # Draw all game Balls
         for b in self.gameBalls:
             b.draw()
@@ -64,7 +80,7 @@ class Plinko():
 
             # Space to drop new Game Balls
             if key[32] and delay > self.ballDelay:
-                self.gameBalls.append(Ball(self, uniform(-2,2), uniform(-2,2)))
+                self.gameBalls.append(Ball(self, uniform(-0.5,0.5), 0))
                 delay = 0
 
             # # Collision testing

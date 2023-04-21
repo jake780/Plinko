@@ -3,16 +3,16 @@ import pygame
 class Ball():
     def __init__(self, game, xvel, yvel):
         self.game = game
-        self.x = 490
-        self.y = 0
         self.width = 15
         self.height = 15
+        self.x = self.game.width/2 - self.width/2
+        self.y = 0
         self.xvel = xvel
         self.yvel = yvel
         self.color = ((255,255,255))
 
         self.gravity = 0.05
-        self.bumpDamping = 1.5
+        self.bumpDamping = 1.75
 
     def draw(self):
         """Draw the Game Ball"""
@@ -55,5 +55,5 @@ class Ball():
                     self.xvel = -self.xvel/self.bumpDamping
                 # Top or Bottom hit
                 else:
-                    self.yvel = -self.yvel
+                    self.yvel = -self.yvel/self.bumpDamping
 
