@@ -1,4 +1,5 @@
 import pygame
+from random import uniform
 
 class Ball():
     def __init__(self, game, xvel, yvel):
@@ -12,7 +13,8 @@ class Ball():
         self.color = ((255,255,255))
 
         self.gravity = 0.05
-        self.bumpDamping = 1.75
+        self.bumpDamping = 1.25
+        self.wallModifier = 2
 
     def draw(self):
         """Draw the Game Ball"""
@@ -29,16 +31,16 @@ class Ball():
         # Collid Game Ball with Game edges
         if (self.x + self.width) >= self.game.width:
             self.x = self.game.width - self.width
-            self.xvel = -self.xvel
+            self.xvel = -self.xvel * self.wallModifier
         if (self.y + self.height) >= self.game.height:
             self.y = self.game.height - self.height
-            self.yvel = -self.yvel
+            self.game.gameBalls.remove(self)
         if self.x <= 0:
             self.x = 0
-            self.xvel = -self.xvel
+            self.xvel = -self.xvel * self.wallModifier
         if self.y <= 0:
             self.y = 0
-            self.yvel = -self.yvel
+            self.yvel = -self.yvel * self.wallModifier
 
         # Collide Game Ball with Objects
         for o in objects:
@@ -55,5 +57,11 @@ class Ball():
                     self.xvel = -self.xvel/self.bumpDamping
                 # Top or Bottom hit
                 else:
-                    self.yvel = -self.yvel/self.bumpDamping
+                    # If ball is stuck
+                    if (self.yvel < 0.5) and (self.xvel < 0.5):
+                        self.yvel = uniform(-1, -0.5)
+                        self.xvel = uniform(-1, 1)
+                    else:
+                        self.yvel = -self.yvel/self.bumpDamping
+        
 
