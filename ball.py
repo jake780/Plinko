@@ -42,9 +42,11 @@ class Ball():
     def collide(self, objects):
         """Collide Game Ball"""
         # Collide Game Ball with Game edges
+        # Right wall bounce
         if (self.x + self.width) >= self.game.width:
             self.x = self.game.width - self.width
             self.xvel = -self.xvel * self.wallModifier
+        # Bottom wall
         if (self.y + self.height) >= self.game.height:
             self.y = self.game.height - self.height
             # Multiplier bins
@@ -72,9 +74,11 @@ class Ball():
             if ((self.x > 550) and (self.x + self.width) <= 650):
                 self.game.eventManager.bank += self.betValue * self.game.eventManager.redBinMult
                 self.game.gameBalls.remove(self)
+        # Left Wall
         if self.x <= 0:
             self.x = 0
             self.xvel = -self.xvel * self.wallModifier
+        # Top Wall
         if self.y <= 0:
             self.y = 0
             self.yvel = -self.yvel * self.wallModifier

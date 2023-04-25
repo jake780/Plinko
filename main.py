@@ -99,10 +99,10 @@ class Plinko():
 
             # Up and down arrows to change bet amount
             if key[pygame.K_UP] and self.eventManager.currentBet < self.eventManager.bank:
-                self.eventManager.currentBet += 0.25
+                self.eventManager.currentBet += self.eventManager.bank/100
                 pygame.time.delay(20)
             if key[pygame.K_DOWN] and self.eventManager.currentBet > 0:
-                self.eventManager.currentBet -= 0.25
+                self.eventManager.currentBet -= self.eventManager.bank/100
                 pygame.time.delay(20)
 
             # ENTER for MAX BET
@@ -112,7 +112,6 @@ class Plinko():
             if key[pygame.K_RSHIFT]:
                 self.eventManager.currentBet = self.eventManager.bank/2
             
-
             # Space to drop new Game Balls
             if key[32] and delay > self.ballDelay and self.eventManager.currentBet > 0:
                 # Check if it is a max bet rainbow ball

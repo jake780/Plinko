@@ -27,11 +27,34 @@ class EventManager():
 
         self.font = pygame.font.Font("freesansbold.ttf", 30)
         self.binFont = pygame.font.Font("freesansbold.ttf", 20)
+        self.infoFont = pygame.font.Font("freesansbold.ttf", 15)
         self.currentBet = 0.0
         self.bank = 10.0
 
     def displayText(self):
         """Displays all text elements"""
+        # Title Text
+        self.prompt_text = self.font.render("PLINKO", True, ((155,255,255)), self.game.bgColor)
+        self.prompt_rect = self.prompt_text.get_rect()
+        self.prompt_rect.center = ((600, 450))
+        self.game.win.blit(self.prompt_text, self.prompt_rect)
+
+        # Information Prompts
+        self.prompt_text = self.infoFont.render("ENTER for MAX BET", True, ((255,255,0)), self.game.bgColor)
+        self.prompt_rect = self.prompt_text.get_rect()
+        self.prompt_rect.center = ((75, 10))
+        self.game.win.blit(self.prompt_text, self.prompt_rect)
+        
+        self.prompt_text = self.infoFont.render("RSHIFT for HALF BET", True, ((255,255,0)), self.game.bgColor)
+        self.prompt_rect = self.prompt_text.get_rect()
+        self.prompt_rect.center = ((80, 25))
+        self.game.win.blit(self.prompt_text, self.prompt_rect)
+
+        self.prompt_text = self.infoFont.render("SPACE to Drop Ball", True, ((255,255,0)), self.game.bgColor)
+        self.prompt_rect = self.prompt_text.get_rect()
+        self.prompt_rect.center = ((70, 40))
+        self.game.win.blit(self.prompt_text, self.prompt_rect)
+
         # Bank Text
         self.prompt_text = self.font.render(f"Bank: ${float('%.2f' % self.bank):,}", True, ((255,0,0)), self.game.bgColor)
         self.prompt_rect = self.prompt_text.get_rect()

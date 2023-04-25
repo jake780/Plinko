@@ -1,15 +1,9 @@
 ADD:
-    money system
-    money value to balls
-    bet display
-    mulitplier buckets
-    color
-
-
+    main menu
+    other levels
+    millionare/Billionare EFFECTS
+    
 FIX:
-    balls getting stuck
-
-
-
-levels
-main menu
+    balls getting stuck of edges rarely
+    move bin interactions to eventmanger
+        + or - text when ball enters bucket
