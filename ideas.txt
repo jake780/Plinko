@@ -1,0 +1,15 @@
+ADD:
+    money system
+    money value to balls
+    bet display
+    mulitplier buckets
+    color
+
+
+FIX:
+    balls getting stuck
+
+
+
+levels
+main menu

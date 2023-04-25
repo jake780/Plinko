@@ -7,7 +7,7 @@ class Obstacle():
         self.y = y
         self.width = width
         self.height = height
-        self.color = ((255, 0, 187))
+        self.color = ((96, 21, 158))
 
     def draw(self):
         pygame.draw.rect(self.game.win, self.color, (self.x, self.y, self.width, self.height))

@@ -35,17 +35,22 @@ class Plinko():
         width = 40
         height = 20
 
+        # First Level design
         for i in range(2, 12):
             for j in range(1, i):
                 self.obstacles.append(Obstacle(self, j*xSpacing + xOffset - (i*xSpacing/2), i*ySpacing, width, height))
-        
         for i in range(2, 12):
             for j in range(1, i):
                 self.obstacles.append(Obstacle(self, j*xSpacing + 0 - (i*xSpacing/2), i*ySpacing, width, height))
-
         for i in range(2, 12):
             for j in range(1, i):
                 self.obstacles.append(Obstacle(self, j*xSpacing + 1160 - (i*xSpacing/2), i*ySpacing, width, height))
+        # Bin seperators
+        for i in range(0, 10):
+            if i < 5:
+                self.obstacles.append(Obstacle(self, 120*i + 60, 900, 20, 100))
+            if i >= 5:
+                self.obstacles.append(Obstacle(self, 120*i + 40, 900, 20, 100))
 
 
     def draw(self):
@@ -62,7 +67,7 @@ class Plinko():
         for b in self.gameBalls:
             b.draw()
 
-        # Drawll all obstacles
+        # Draw all obstacles
         for o in self.obstacles:
             o.draw()
 
@@ -92,9 +97,32 @@ class Plinko():
                 run = False
                 return
 
+            # Up and down arrows to change bet amount
+            if key[pygame.K_UP] and self.eventManager.currentBet < self.eventManager.bank:
+                self.eventManager.currentBet += 0.25
+                pygame.time.delay(20)
+            if key[pygame.K_DOWN] and self.eventManager.currentBet > 0:
+                self.eventManager.currentBet -= 0.25
+                pygame.time.delay(20)
+
+            # ENTER for MAX BET
+            if key[pygame.K_RETURN]:
+                self.eventManager.currentBet = self.eventManager.bank
+            # Right Shift for HALF BET
+            if key[pygame.K_RSHIFT]:
+                self.eventManager.currentBet = self.eventManager.bank/2
+            
+
             # Space to drop new Game Balls
-            if key[32] and delay > self.ballDelay:
-                self.gameBalls.append(Ball(self, uniform(-1.5,1.5), uniform(-1.5, 1.5)))
+            if key[32] and delay > self.ballDelay and self.eventManager.currentBet > 0:
+                # Check if it is a max bet rainbow ball
+                if self.eventManager.currentBet == self.eventManager.bank:
+                    rainbow = True
+                else:
+                    rainbow = False
+                self.gameBalls.append(Ball(self, uniform(-4, 4), uniform(-1.5, 1.5), self.eventManager.currentBet, rainbow))
+                self.eventManager.bank -= self.eventManager.currentBet
+                self.eventManager.currentBet = 0
                 delay = 0
 
             # # Collision testing
